@@ -22,11 +22,11 @@ eval "$(direnv hook zsh)"
 {{- /* MacOS-specific code */}} 
 {{- if (eq .chezmoi.os "darwin") }}
 # Mac only -> start
+export GOPATH="$HOME/go"
 export PATH=$PATH:/usr/local/opt/coreutils/libexec/gnubin
 export PATH="/usr/local/opt/php@7.4/bin:$PATH"
 export PATH="/usr/local/opt/php@7.4/sbin:$PATH"
-export PATH="/usr/local/opt/python@3.10/bin:$PATH"
-
+export PATH="$GOPATH/bin:/usr/local/opt/python@3.10/bin:$PATH"
 . $(brew --prefix)/etc/profile.d/z.sh
 
 alias mc=". /usr/local/Cellar/midnight-commander/4.8.26/libexec/mc/mc-wrapper.sh --nosubshell"

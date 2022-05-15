@@ -2,6 +2,9 @@ nmap <F1> <nop>
 set termguicolors
 set clipboard+=unnamedplus
 set hidden
+set number
+set relativenumber
+colorscheme slate
 
 {{- /*  WSL-specific code */}}
 {{- if (eq .chezmoi.os "linux") }}

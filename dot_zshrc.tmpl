@@ -1,5 +1,6 @@
 # If you come from bash you might have to change your $PATH.
 export PATH=$PATH:$HOME/bin
+export PATH="$HOME/.poetry/bin:$PATH" # poetry
 # asdfsaddf
 
 # Path to your oh-my-zsh installation.
@@ -39,6 +40,7 @@ alias mc=". /usr/local/Cellar/midnight-commander/4.8.28/libexec/mc/mc-wrapper.sh
 {{-   if (.chezmoi.kernel.osrelease | lower | contains "microsoft") }}
 # WSL only -> start
 export XDG_CONFIG_HOME="$HOME/.config"
+export PATH="/home/sergey/.local/bin:$PATH" # PIP installed from ensurepip
 # WSL only <- end
 {{-   end }}
 {{- end }}

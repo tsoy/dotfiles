@@ -21,10 +21,28 @@ alias ls="exa"
 eval "$(direnv hook zsh)"
 eval "$(starship init zsh)"
 
+# nnn file manager
+n ()
+{
+    # Block nesting of nnn in subshells
+    if [[ "${NNNLVL:-0}" -ge 1 ]]; then
+        echo "nnn is already running"
+        return
+    fi
+
+    export NNN_TMPFILE="${XDG_CONFIG_HOME:-$HOME/.config}/nnn/.lastd"
+
+    \nnn "$@"
+
+    if [ -f "$NNN_TMPFILE" ]; then
+            . "$NNN_TMPFILE"
+            rm -f "$NNN_TMPFILE" > /dev/null
+    fi
+}
+
 {{- /* MacOS-specific code */}} 
 {{- if (eq .chezmoi.os "darwin") }}
 # Mac only -> start
-export GOPATH="$HOME/go"
 export PATH=$PATH:/usr/local/opt/coreutils/libexec/gnubin
 export PATH="/usr/local/opt/php@7.4/bin:$PATH"
 export PATH="/usr/local/opt/php@7.4/sbin:$PATH"
@@ -42,7 +60,12 @@ alias mc=". /usr/local/Cellar/midnight-commander/4.8.28/libexec/mc/mc-wrapper.sh
 # WSL only -> start
 export XDG_CONFIG_HOME="$HOME/.config"
 export PATH="/home/sergey/.local/bin:$PATH" # PIP installed from ensurepip
+. "$HOME/bin/z/z.sh"
+export PATH=$PATH:/usr/local/go/bin
+export GOPATH="$HOME/go"
+export PATH="$PATH:$GOPATH/bin"
 # WSL only <- end
 {{-   end }}
 {{- end }}
+
 
